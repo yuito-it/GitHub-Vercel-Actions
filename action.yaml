@@ -1,0 +1,32 @@
+name: "Vercel Production Deployment"
+description: "Deploy to Vercel Production"
+author: "yuito-it"
+branding:
+  icon: "check"
+  color: "green"
+
+inputs:
+  vercel-token:
+    description: "Vercel API Token"
+    required: true
+  vercel-project:
+    description: "Vercel project name"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - name: Install Vercel CLI
+      shell: bash
+      run: npm install -g vercel
+    - name: Link Vercel Project
+      shell: bash
+      run: vercel link --token=${{inputs.vercel-token}} --project ${{inputs.vercel-project}} --yes
+    - name: Deploy with Vercel
+      shell: bash
+      run: vercel deploy --prod --token=${{inputs.vercel-token}} >deployment-url.txt 2>error.txt
+    - name: Set release url
+      shell: bash
+      id: get_release_url
+      run: echo release_url=$(cat deployment-url.txt) >> $GITHUB_OUTPUT
