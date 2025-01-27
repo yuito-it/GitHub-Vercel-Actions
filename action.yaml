@@ -26,7 +26,3 @@ runs:
     - name: Deploy with Vercel
       shell: bash
       run: vercel deploy --prod --token=${{inputs.vercel-token}} >deployment-url.txt 2>error.txt
-    - name: Set release url
-      shell: bash
-      id: get_release_url
-      run: echo release_url=$(cat deployment-url.txt) >> $GITHUB_OUTPUT
