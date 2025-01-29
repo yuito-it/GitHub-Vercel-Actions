@@ -25,4 +25,4 @@ runs:
       run: vercel link --token=${{inputs.vercel-token}} --project ${{inputs.vercel-project}} --yes
     - name: Deploy with Vercel
       shell: bash
-      run: vercel deploy --prod --token=${{inputs.vercel-token}} >deployment-url.txt 2>error.txt
+      run: vercel deploy --prod --force --token=${{inputs.vercel-token}} >deployment-url.txt 2>error.txt
